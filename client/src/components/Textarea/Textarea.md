@@ -12,7 +12,7 @@ const handleChange = (newValue) => {
 </>;
 ```
 
-Ref로 textarea 제어법
+Ref로 textarea 제어법:
 
 ```js
 import React, {useRef} from 'react';
@@ -25,5 +25,13 @@ const handleClick = () => {
   <button onClick={handleClick} style={{marginBottom: 10}}>클릭</button>
 
   <Textarea ref={textareaRef} />
+</>
+```
+
+autoFocus:
+
+```js
+<>
+  <Textarea autoFocus={true} />
 </>
 ```

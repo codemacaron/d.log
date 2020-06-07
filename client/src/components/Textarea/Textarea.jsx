@@ -1,13 +1,14 @@
-import React, { useState, forwardRef } from 'react';
+import React, { useEffect, useState, forwardRef, useRef } from 'react';
 import { string, number, bool, func } from 'prop-types';
 import classNames from 'classnames';
 import './Textarea.scss';
 
 const Textarea = forwardRef((props, ref) => {
-  const { placeholder, name, className, disabled = false, onChange, maxLength } = props;
+  const { autoFocus = false, placeholder, name, className, disabled = false, onChange, maxLength } = props;
   const [value, setValue] = useState('');
   const [countValue, setCountValue] = useState(0);
 
+  const textareaRef = useRef(null);
 
   const handleChange = (e) => {
     setValue(e.target.value);
@@ -24,12 +25,18 @@ const Textarea = forwardRef((props, ref) => {
     setCountValue(value.length);
   };
 
+  useEffect(() => {
+    if (textareaRef && textareaRef.current) {
+      textareaRef.current.focus();
+    }
+  }, []);
+
   return (
     <div
       className={classNames('textarea', className)}
     >
       <textarea
-        ref={ref}
+        ref={autoFocus ? textareaRef : ref}
         className="textarea__area"
         name={name}
         placeholder={placeholder}
